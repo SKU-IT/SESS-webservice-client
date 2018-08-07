@@ -10,8 +10,7 @@ class SESS():
     """SESS web-service"""
     WSDL = 'https://sess.sku.ac.ir/sess/WebServices/%s.asmx?WSDL'
 
-    def __init__(self, username, password, web_service='StdService', delimiter='&'):
-        super(SESS, self).__init__()
+    def __init__(self, username, password, web_service, delimiter='&'):
         self.username = username
         self.password = md5(password.encode('utf-8')).hexdigest()
         self.web_service = web_service
@@ -46,7 +45,13 @@ class SESS():
 
         List of available gates should be provided by IT center.
         """
-        self.call('Login', gate=gate)
+        self.call('Login', Gate=gate)
+
+
+class StdService(SESS):
+    """SESS students web-service"""
+    def __init__(self, username, password):
+        super(StdService, self).__init__(username=username, password=password, web_service='StdService', delimiter='&')
 
     def set_list(self, condition):
         """Create a list based on condition return length of it.

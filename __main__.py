@@ -2,14 +2,14 @@
 
 from getpass import getpass
 
-from sess import SESS
+from sess import StdService
 
 
 def main():
-    sess = SESS(input('Username: '), getpass(), 'StdService')
-    sess.login(gate='test')
-    print(sess.set_list(condition=''))
-    print(sess.get_list(count=10, start=0))
+    std_service = StdService(input('Username: '), getpass())
+    std_service.login(gate='test')
+    print(std_service.set_list(condition=''))
+    print(std_service.get_list(count=10, start=0))
 
 
 if __name__ == '__main__':
