@@ -6,7 +6,8 @@ from sess import SESS
 
 
 def main():
-    sess = SESS(input('Username: '), getpass())
+    sess = SESS(input('Username: '), getpass(), 'StdService')
+    print(sess.call('Login', Gate='test'))
 
 
 if __name__ == '__main__':
