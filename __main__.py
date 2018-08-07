@@ -7,7 +7,9 @@ from sess import SESS
 
 def main():
     sess = SESS(input('Username: '), getpass(), 'StdService')
-    print(sess.call('Login', Gate='test'))
+    sess.login(gate='test')
+    print(sess.set_list(condition=''))
+    print(sess.get_list(count=10, start=0))
 
 
 if __name__ == '__main__':

@@ -40,3 +40,22 @@ class SESS():
             return res[1:]
         else:
             raise RuntimeError('API Err %s\n%s' % tuple(res))
+
+    def login(self, gate):
+        """Login with a special gate.
+
+        List of available gates should be provided by IT center.
+        """
+        self.call('Login', gate=gate)
+
+    def set_list(self, condition):
+        """Create a list based on condition return length of it.
+
+        Created list is stored in server itself until next login.
+        Condition should not include control characters.
+        """
+        return self.call('SetList', Condition=condition)[0]
+
+    def get_list(self, count, start=0):
+        """Return count numbers of last created list starting from start."""
+        return self.call('GetList', Start=start, Count=count)
