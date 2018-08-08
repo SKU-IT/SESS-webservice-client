@@ -12,7 +12,10 @@ The following operations are supported.
 
 For more details, please review the [web-service docs](https://sess.sku.ac.ir/sess/WebServices/StdService.asmx).
 
+### Gates
+
 ### Error Codes
+
 
 #### GetKey
 
