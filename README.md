@@ -4,54 +4,117 @@
 
 a simple client for communicating with <https://sess.sku.ac.ir> WSDL-SOAP-based web services
 
-## StdService
+## Methods
 
-The following operations are supported.
-* GetKey
-* Login
-* SetList
-* GetList
+First, you should get a key by calling `GetKey`. Then you should call `Login`. For every operation you should make a result list on server by `SetList` and get its elements part by part.
 
-For more details, please review the [web-service docs](https://sess.sku.ac.ir/sess/WebServices/StdService.asmx).
+Response of each method is in form of `Code&Key[&Res]`. Response code `000` means success, while any other response code means occurrence of error. (See [Error Codes](#error-codes).)  
+In each method invocation, except `GetKey`, you should use `MD5(KeyOfPreviosMethodCall + MD5(Password))` as `Pass` parameter. Calling `GetKey` doesn't need any `Pass` parameter.
 
-### Gates
+### `GetKey`
 
-#### PersonalInfo
+```XML
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:GetKey>
+         <tem:UserId>?</tem:UserId>
+      </tem:GetKey>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
 
-Returns _SID_, _FieldName_, _Email_, _FirstName_, and _LastName_ of students matching condition, in a CSV-like format.
+### `Login`
 
-### Error Codes
+```XML
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:Login>
+         <tem:UserId>?</tem:UserId>
+         <tem:Pass>?</tem:Pass>
+         <tem:Gate>?</tem:Gate>
+      </tem:Login>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
 
+### `SetList`
 
-#### GetKey
+```XML
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:SetList>
+         <tem:UserId>?</tem:UserId>
+         <tem:Pass>?</tem:Pass>
+         <tem:Condition>?</tem:Condition>
+      </tem:SetList>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### `GetList`
+
+```XML
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:GetList>
+         <tem:UserId>?</tem:UserId>
+         <tem:Pass>?</tem:Pass>
+         <tem:Start>?</tem:Start>
+         <tem:Count>?</tem:Count>
+      </tem:GetList>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+## Web-services
+
+### StdService
+
+Get information about students.
+
+For more details, please review the [web-service docs](https://sess.sku.ac.ir/sess/WebServices/StdService.asmx) or [its WSDL version](https://sess.sku.ac.ir/sess/WebServices/StdService.asmx?WSDL).
+
+#### Gates
+
+##### PersonalInfo
+
+Returns `SID`, `FieldName`, `Email`, `FirstName`, and `LastName` of students matching condition, in a CSV-like format.
+
+## Error Codes
+
+### `GetKey`
 
 | Error Code | Detail |
 | :--------- | -----: |
-| 001        | ‫کاربر وجود ندارد یا مجوز اتصال به وب سرویس را ندارد.‬ |
+| `001`      | ‫کاربر وجود ندارد یا مجوز اتصال به وب سرویس را ندارد.‬ |
 
-#### Login
-
-| Error Code | Detail |
-| :--------- | -----: |
-| 001        | ‫وب سرویس یافت نشد.‬ |
-| 002        | ‫کاربر مجوز استفاده از این وب سرویس را ندارد.‬ |
-| 064        | ‫شناسه کاربری یا کلمه رمز غلط است.‬ |
-
-#### SetList
+### `Login`
 
 | Error Code | Detail |
 | :--------- | -----: |
-| 001        | ‫کاربر به این وب سرویس وارد نشده است.‬ |
-| 002        | ‫کاربر مجوز استفاده از این وب سرویس را ندارد.‬ |
-| 003        | ‫عبارت جستجو نباید شامل حروف کنترل باشد.‬ |
-| 004        | ‫متن خطای داخلی‬ |
-| 064        | ‫شناسه کاربری یا کلمه رمز غلط است.‬ |
+| `001`      | ‫وب سرویس یافت نشد.‬ |
+| `002`      | ‫کاربر مجوز استفاده از این وب سرویس را ندارد.‬ |
+| `064`      | ‫شناسه کاربری یا کلمه رمز غلط است.‬ |
 
-#### GetList
+### `SetList`
 
 | Error Code | Detail |
 | :--------- | -----: |
-| 001        | ‫کاربر به این وب سرویس وارد نشده است.‬ |
-| 002        | ‫کاربر مجوز استفاده از این وب سرویس را ندارد.‬ |
-| 003        | ‫عملیات جستجو انجام نشده است.‬ |
-| 064        | ‫شناسه کاربری یا کلمه رمز غلط است.‬ |
+| `001`      | ‫کاربر به این وب سرویس وارد نشده است.‬ |
+| `002`      | ‫کاربر مجوز استفاده از این وب سرویس را ندارد.‬ |
+| `003`      | ‫عبارت جستجو نباید شامل حروف کنترل باشد.‬ |
+| `004`      | ‫متن خطای داخلی‬ |
+| `064`      | ‫شناسه کاربری یا کلمه رمز غلط است.‬ |
+
+### `GetList`
+
+| Error Code | Detail |
+| :--------- | -----: |
+| `001`      | ‫کاربر به این وب سرویس وارد نشده است.‬ |
+| `002`      | ‫کاربر مجوز استفاده از این وب سرویس را ندارد.‬ |
+| `003`      | ‫عملیات جستجو انجام نشده است.‬ |
+| `064`      | ‫شناسه کاربری یا کلمه رمز غلط است.‬ |
