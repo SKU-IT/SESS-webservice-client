@@ -2,14 +2,13 @@
 
 from getpass import getpass
 
-from sess import StdService
+from personal_info import PersonalInfo
 
 
 def main():
-    std_service = StdService(input('Username: '), getpass())
-    std_service.login(gate='test')
-    print(std_service.set_list(condition=''))
-    print(std_service.get_list(count=10, start=0))
+    gate = PersonalInfo(input('Username: '), getpass())
+    print(gate.set_list(condition='CurrentAcadState=1'))
+    print(gate.get_list(count=10, start=0))
 
 
 if __name__ == '__main__':

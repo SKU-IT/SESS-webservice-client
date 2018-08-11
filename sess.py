@@ -3,10 +3,10 @@ from hashlib import md5
 
 import zeep
 
-DEBUG = True
+DEBUG = False
 
 
-class SESS():
+class WebService():
     """SESS web-service"""
     WSDL = 'https://sess.sku.ac.ir/sess/WebServices/%s.asmx?WSDL'
 
@@ -47,12 +47,6 @@ class SESS():
         """
         self.call('Login', Gate=gate)
 
-
-class StdService(SESS):
-    """SESS students web-service"""
-    def __init__(self, username, password):
-        super(StdService, self).__init__(username=username, password=password, web_service='StdService', delimiter='&')
-
     def set_list(self, condition):
         """Create a list based on condition return length of it.
 
@@ -64,3 +58,25 @@ class StdService(SESS):
     def get_list(self, count, start=0):
         """Return count numbers of last created list starting from start."""
         return self.call('GetList', Start=start, Count=count)
+
+
+class Gate():
+    """SESS web-service gate"""
+    def __init__(self, gate, username, password, web_service_name, sep_part='&', sep_line=';', sep_field='|'):
+        self.sep_part = sep_part
+        self.sep_line = sep_line
+        self.sep_field = sep_field
+        self.web_service = WebService(username, password, web_service_name)
+        self.web_service.login(gate)
+
+    def set_list(self, condition):
+        """Create a list based on condition return length of it.
+
+        Created list is stored in server itself until next login.
+        Condition should not include control characters.
+        """
+        return self.web_service.set_list(condition)
+
+    def get_list(self, count, start=0):
+        """Return count numbers of last created list starting from start."""
+        return self.web_service.get_list(count, start)
