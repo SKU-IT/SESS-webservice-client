@@ -7,8 +7,7 @@ from personal_info import PersonalInfo
 
 def main():
     gate = PersonalInfo(input('Username: '), getpass())
-    print(gate.set_list(condition='CurrentAcadState=1'))
-    print(gate.get_list(count=10, start=0))
+    print(gate.get_data('CurrentAcadState=1', max_length=10))
 
 
 if __name__ == '__main__':
