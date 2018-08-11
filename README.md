@@ -16,6 +16,10 @@ For more details, please review the [web-service docs](https://sess.sku.ac.ir/se
 
 ### Gates
 
+#### PersonalInfo
+
+Returns _SID_, _FieldName_, _Email_, _FirstName_, and _LastName_ of students matching condition, in a CSV-like format.
+
 ### Error Codes
 
 
