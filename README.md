@@ -82,7 +82,7 @@ For more details, please review the [web-service docs](https://sess.sku.ac.ir/se
 
 ##### PersonalInfo
 
-Returns `SID`, `FieldName`, `Email`, `FirstName`, and `LastName` of students matching condition, in a CSV-like format.
+Returns `SID`, `FieldName`, `Level`, `Email`, `FirstName`, and `LastName` of students matching condition, in a CSV-like format.
 
 ## Error Codes
 
