@@ -11,7 +11,18 @@ class PersonalInfo(Gate):
         super(PersonalInfo, self).__init__('PersonalInfo', username, password, 'StdService',
                                            sep_part='&', sep_line='\n', sep_field=',')
         self.bucket_length = 100
-        self.headers = ['SID', 'Intrant', 'FieldName', 'Level', 'Email', 'FirstName', 'LastName', 'ExitSemester', 'CurrentAcadState']
+        self.headers = [
+            'SID',
+            'Intrant',
+            'FieldName',
+            'Level',
+            'Email',
+            'FirstName',
+            'LastName',
+            'ExitSemester',
+            'CurrentAcadState',
+            'NationalCode'
+        ]
         self.sep_line = sep_line
         self.sep_field = sep_field
 
