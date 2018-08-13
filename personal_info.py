@@ -6,14 +6,14 @@ class PersonalInfo(CSVGate):
     def __init__(self, username, password):
         super(PersonalInfo, self).__init__('PersonalInfo', username, password, 'StdService')
         self.headers = [
+            'NationalCode',
             'SID',
-            'Intrant',
-            'FieldName',
-            'Level',
-            'Email',
             'FirstName',
             'LastName',
-            'ExitSemester',
+            'Email',
+            'Level',
+            'FieldName',
             'CurrentAcadState',
-            'NationalCode'
+            'Intrant',
+            'ExitSemester'
         ]
