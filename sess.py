@@ -1,9 +1,12 @@
-from sys import stderr
+import csv
 from hashlib import md5
+from io import StringIO
+from math import ceil
+from sys import stderr
 
 import zeep
 
-DEBUG = False
+DEBUG = True
 
 
 class WebService():
@@ -80,3 +83,29 @@ class Gate():
     def get_list(self, count, start=0):
         """Return count numbers of last created list starting from start."""
         return self.web_service.get_list(count, start)
+
+
+class CSVGate(Gate):
+    """SESS CSV-like web-service gate"""
+    def __init__(self, gate, username, password, web_service_name, bucket_length=100):
+        super(CSVGate, self).__init__(gate, username, password, web_service_name,
+                                      sep_part='&', sep_line='\n', sep_field=',')
+        self.bucket_length = bucket_length
+        self.headers = []
+
+    def get_data(self, condition, max_length=None):
+        """Get info of students matching condition.
+
+        Set max_length to None to get all rows.
+        """
+        length = self.web_service.set_list(condition)
+        if max_length:
+            length = max_length
+        res_str = ''
+        for i in range(ceil(length / self.bucket_length)):
+            bucket_length = self.bucket_length
+            if (i + 1) * self.bucket_length > length:
+                bucket_length = length - i * self.bucket_length
+            res = self.web_service.get_list(bucket_length, start=i * self.bucket_length)
+            res_str += ['', res[1]][int(res[0]) > 0]
+        return list(csv.DictReader(StringIO(res_str, self.sep_line), fieldnames=self.headers))
