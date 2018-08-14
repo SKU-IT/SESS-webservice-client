@@ -15,5 +15,6 @@ class PersonalInfo(CSVGate):
             'FieldName',
             'CurrentAcadState',
             'Intrant',
-            'ExitSemester'
+            'ExitSemester',
+            'Thesis'
         ]

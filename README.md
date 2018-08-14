@@ -82,7 +82,7 @@ For more details, please review the [web-service docs](https://sess.sku.ac.ir/se
 
 ##### PersonalInfo
 
-Returns `NationalCode`, `SID`, `FirstName`, `LastName`, `Email`, `Level`, `FieldName`, `CurrentAcadState`, `Intrant`, and `ExitSemester`of students matching condition, in a CSV-like format.
+Returns `NationalCode`, `SID`, `FirstName`, `LastName`, `Email`, `Level`, `FieldName`, `CurrentAcadState`, `Intrant`, `ExitSemester`, and `Thesis` of students matching condition, in a CSV-like format.
 
 ## Error Codes
 
